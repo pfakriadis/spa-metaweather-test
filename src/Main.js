@@ -5,12 +5,12 @@ import {
 } from "react-router-dom";
 import MainView from "./MainView";
 
-function Main() {
+function Main({search}) {
 
     return (
         <Switch>
             <Route path="/">
-                <MainView />
+                <MainView search={search} />
             </Route> 
         </Switch>
     );

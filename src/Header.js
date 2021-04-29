@@ -6,6 +6,7 @@ import Paper from '@material-ui/core/Paper';
 import InputBase from '@material-ui/core/InputBase';
 import IconButton from '@material-ui/core/IconButton';
 import SearchIcon from '@material-ui/icons/Search';
+import { useState } from 'react';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -34,18 +35,29 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function Header() {
+function Header({handleSearch}) {
   const classes = useStyles();
+
+  const [value, setValue] = useState("");
+
+  const handleSubmit = (event) => {
+      
+    event.preventDefault();
+
+    handleSearch(value);
+  }
 
   return (
     <div className={classes.root}>
       <AppBar position="static">
         <Toolbar className={classes.justify}>
-            <Paper component="form" className={classes.rootPaper}>
+            <Paper component="form" className={classes.rootPaper} onSubmit={handleSubmit}>
                 <InputBase
                     className={classes.input}
                     placeholder="Search MetaWeather"
                     inputProps={{ 'aria-label': 'search metaweather' }}
+                    value={value}
+                    onInput={e=>setValue(e.target.value)}
                 />
                 <IconButton type="submit" className={classes.iconButton} aria-label="search">
                     <SearchIcon />
